@@ -1,6 +1,6 @@
 {
   "name": "@bytestream/gulp-archiver",
-  "version": "1.0.0",
+  "version": "0.0.0-semantic-release",
   "description": "Archive anything through gulp",
   "author": "Alexander Biryukov <alex.biryukoff@gmail.com>",
   "repository": "bytestream/gulp-archiver",
