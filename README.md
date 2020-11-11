@@ -34,8 +34,6 @@ Type: `String`
 
 Result archive file name.
 
-File extension is used to define archive type. Plugin supports only `zip` and `tar` archives.
-
 #### options
 
 Type: `Object`

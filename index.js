@@ -7,32 +7,27 @@ var through = require('through2');
 var archiver = require('archiver');
 var concatStream = require('concat-stream');
 
+function getArchiveTypeFromFile(path)
+{
+    const supported = ["zip", "tar", "tar.gz", "tgz"];
+    for (let extension of supported) {
+        let re = new RegExp(extension + '$');
+        if (re.test(path)) {
+            return extension;
+        }
+    }
+
+    throw new PluginError('gulp-archiver', 'Unsupported archive type for gulp-archiver');
+}
+
 module.exports = function (file, opts) {
-    if (!file) {
+    if (typeof file !== 'string' || file.length === 0) {
         throw new PluginError('gulp-archiver', 'Missing file option for gulp-archiver');
     }
-    opts = opts || {};
 
     var firstFile,
-        fileName,
-        archiveType;
-
-    if (typeof file === 'string' && file !== '') {
-        fileName = file;
-    } else if (typeof file.path === 'string') {
-        fileName = path.basename(file.path);
-    } else {
-        throw new PluginError('gulp-archiver', 'Missing path in file options for gulp-archiver');
-    }
-
-    var matches = fileName.match(/\.(zip|tar)$|\.(tar).gz$/);
-    if (matches !== null) {
-        archiveType = matches[1] || matches[2];
-    } else {
-        throw new PluginError('gulp-archiver', 'Unsupported archive type for gulp-archiver');
-    }
-
-    var archive = archiver.create(archiveType, opts);
+        archiveType = getArchiveTypeFromFile(file),
+        archive = archiver.create(archiveType, opts || {});
 
     return through.obj(function(file, enc, cb) {
         if (file.isStream()) {
@@ -66,7 +61,7 @@ module.exports = function (file, opts) {
             this.push(new Vinyl({
                 cwd: firstFile.cwd,
                 base: firstFile.base,
-                path: path.join(firstFile.base, fileName),
+                path: path.join(firstFile.base, file),
                 contents: data
             }));
 

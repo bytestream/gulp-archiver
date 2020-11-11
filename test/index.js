@@ -13,18 +13,16 @@ var fixtures = function (glob) {
 };
 
 describe('gulp-archiver', function() {
+    it('should throw, when unsupported archive type', function() {
+        (function() {
+            archive('foo.bar');
+        }).should.throw('Unsupported archive type for gulp-archiver');
+    });
+
     it('should throw, when arguments is missing', function() {
         (function() {
             archive();
         }).should.throw('Missing file option for gulp-archiver');
-    });
-
-    describe('with object as argument', function () {
-        it('should throw without path', function () {
-            (function () {
-                archive({path: undefined});
-            }).should.throw('Missing path in file options for gulp-archiver');
-        });
     });
 
     it('should throw, when incorrect archive type were passed', function() {
@@ -49,12 +47,6 @@ describe('gulp-archiver', function() {
     describe('should not fail if no files were input', function () {
         it('when argument is a string', function(done) {
             var stream = archive('test.zip');
-            stream.end();
-            done();
-        });
-
-        it('when argument is an object', function(done) {
-            var stream = archive({path: 'test.zip'});
             stream.end();
             done();
         });
