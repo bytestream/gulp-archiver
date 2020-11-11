@@ -87,9 +87,14 @@ describe('gulp-archiver', function() {
             // unzip
             .pipe(unzip())
             // check unzipped result
-            .pipe(assert.length(4))
+            .pipe(assert.length(5))
             .pipe(assert.nth(0,function(file) {
                 const path = 'fixture.txt';
+                file.path.should.eql(path);
+                file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
+            }))
+            .pipe(assert.nth(1,function(file) {
+                const path = 'symbolic-link.txt';
                 file.path.should.eql(path);
                 file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
             }))
@@ -125,9 +130,52 @@ describe('gulp-archiver', function() {
             // unzip
             .pipe(unzip())
             // check unzipped result
-            .pipe(assert.length(4))
+            .pipe(assert.length(5))
             .pipe(assert.nth(0,function(file) {
                 const path = 'fixture.txt';
+                file.path.should.eql(path);
+                file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
+            }))
+            .pipe(assert.nth(1,function(file) {
+                const path = 'directory/file0.txt';
+                file.path.should.eql(path);
+                file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
+            }))
+            .pipe(assert.nth(2,function(file) {
+                const path = 'directory/dir0/file1.txt';
+                file.path.should.eql(path);
+                file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
+            }))
+            .pipe(assert.nth(3,function(file) {
+                const path = 'directory/dir0/dir1/file2.txt';
+                file.path.should.eql(path);
+                file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
+            }))
+            // ok
+            .pipe(assert.end(done));
+    });
+
+    it('should archive directories with resolveSymlinks: false', function(done) {
+        this.timeout(0);
+
+        gulp.src(fixtures('**'), {resolveSymlinks: false})
+            .pipe(archive('test.zip'))
+            // check archive created correct
+            .pipe(assert.length(1))
+            .pipe(assert.first(function(destFile) {
+                destFile.path.should.eql(__dirname + '/fixtures/test.zip');
+            }))
+            // unzip
+            .pipe(unzip())
+            // check unzipped result
+            .pipe(assert.length(5))
+            .pipe(assert.nth(0,function(file) {
+                const path = 'fixture.txt';
+                file.path.should.eql(path);
+                file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
+            }))
+            .pipe(assert.nth(1,function(file) {
+                const path = 'symbolic-link.txt';
                 file.path.should.eql(path);
                 file.contents.toString().should.eql(fs.readFileSync(fixtures(path), {encoding: 'utf8'}));
             }))

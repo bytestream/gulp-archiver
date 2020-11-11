@@ -40,13 +40,15 @@ module.exports = function (file, opts) {
             firstFile = file;
         }
 
-        // Add to archive
-        if (file.isNull()) { // directories or file with empty .contents field
-            if (file.relative.length) {
-                archive.file(file.path, {name: file.relative});
+        // file.relative is an empty string on the base directory.
+        if (file.relative) {
+            if (file.isDirectory()) {
+                archive.append(null, {name: file.relative, type: "directory"});
+            } else if (file.isSymbolic()) {
+                archive.symlink(file.relative, file.symlink);
+            } else {
+                archive.append(file.contents, {name: file.relative, type: "file"});
             }
-        } else {
-            archive.append(file.contents, {name: file.relative});
         }
 
         cb();
