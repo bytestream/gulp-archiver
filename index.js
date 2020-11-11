@@ -1,9 +1,8 @@
 'use strict';
 
 var path = require('path');
-var gutil = require('gulp-util');
-var PluginError = gutil.PluginError;
-var File = gutil.File;
+var PluginError = require('plugin-error');
+var Vinyl = require('vinyl');
 var through = require('through2');
 var archiver = require('archiver');
 var concatStream = require('concat-stream');
@@ -64,7 +63,7 @@ module.exports = function (file, opts) {
 
         archive.finalize();
         archive.pipe(concatStream(function(data) {
-            this.push(new File({
+            this.push(new Vinyl({
                 cwd: firstFile.cwd,
                 base: firstFile.base,
                 path: path.join(firstFile.base, fileName),
