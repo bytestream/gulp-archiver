@@ -5,7 +5,8 @@
       "linkCompare": false,
       "linkReferences": false
     }],
-    "@semantic-release/github"
+    "@semantic-release/github",
+    "@semantic-release/npm",
   ],
   "preset": "conventionalcommits",
   "presetConfig": {
