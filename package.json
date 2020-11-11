@@ -22,9 +22,12 @@
     "through2": "^4.0.2"
   },
   "devDependencies": {
+    "@semantic-release/github": "^7.1.1",
+    "@semantic-release/npm": "^7.0.6",
     "gulp": "^4.0.2",
     "gulp-unzip": "^1.1.0",
     "mocha": "^8.2.1",
+    "semantic-release": "^17.2.2",
     "should": "^13.2.3",
     "stream-assert": "^2.0.3"
   },
