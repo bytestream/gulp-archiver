@@ -16,19 +16,17 @@
     "gulp"
   ],
   "dependencies": {
-    "archiver": "^0.14.4",
-    "concat-stream": "^1.5.0",
-    "gulp-util": "^3.0.5",
-    "through2": "^0.6.5"
+    "archiver": "^5.0.2",
+    "concat-stream": "^2.0.0",
+    "gulp-util": "^3.0.8",
+    "through2": "^4.0.2"
   },
   "devDependencies": {
-    "decompress-unzip": "^3.2.2",
-    "gulp": "^3.9.0",
-    "mocha": "^2.2.5",
-    "should": "^7.0.1",
-    "stream-assert": "^2.0.2",
-    "tar": "^2.1.1",
-    "vinyl-assign": "^1.1.0"
+    "gulp": "^4.0.2",
+    "gulp-unzip": "^1.1.0",
+    "mocha": "^8.2.1",
+    "should": "^13.2.3",
+    "stream-assert": "^2.0.3"
   },
   "license": "MIT"
 }
