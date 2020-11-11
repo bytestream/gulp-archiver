@@ -1,9 +1,9 @@
 {
-  "name": "gulp-archiver",
+  "name": "@bytestream/gulp-archiver",
   "version": "1.0.0",
   "description": "Archive anything through gulp",
   "author": "Alexander Biryukov <alex.biryukoff@gmail.com>",
-  "repository": "fobos/gulp-archiver",
+  "repository": "bytestream/gulp-archiver",
   "main": "index.js",
   "scripts": {
     "test": "mocha"

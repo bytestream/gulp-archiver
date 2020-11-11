@@ -1,11 +1,18 @@
 # gulp-archiver
+
 Archive anything through gulp
+
+## Install
+
+```
+npm install @bytestream/gulp-archiver --save
+```
 
 ## Usage
 
 ```js
 var gulp = require('gulp');
-var archiver = require('gulp-archiver');
+var archiver = require('@bytestream/gulp-archiver');
 
 gulp.task('default', function () {
 	return gulp.src('src/**')
